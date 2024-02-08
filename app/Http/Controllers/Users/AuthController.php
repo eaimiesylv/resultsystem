@@ -20,6 +20,10 @@ class AuthController extends Controller
        
         $response = $this->authService->authenticateUser($request->all());
         
+        if(is_null($response)){
+
+            return response()->json(['message' =>'Invalid credentials'], 404);
+        }
         return $response;
       
 

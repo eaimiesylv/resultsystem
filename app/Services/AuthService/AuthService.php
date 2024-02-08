@@ -12,6 +12,7 @@ class AuthService
 
     public function __construct(UserRepository $userRepository)
     {
+        
         $this->userRepository = $userRepository;
 
     }
@@ -25,8 +26,8 @@ class AuthService
     {
        
         $user = $this->userRepository->getUserByEmail($request['email']);
-        
-        return $this->passwordValidation($request['password'], $user->password) ? [$user->createToken('api-token')->plainTextToken, $user]: [];
+
+        return $this->passwordValidation($request['password'], $user->password) ? [$user->createToken('api-token')->plainTextToken, $user]: null;
        
     }
     
