@@ -20,9 +20,10 @@ class UserController extends Controller
    
     public function store(UserFormRequest $request)
     { 	
-       
         
-            return $this->userService->createUser($request->all());
+        $response = $this->userService->createUser($request->all());
+
+        return response()->json([$response], 201);
         
     }
    

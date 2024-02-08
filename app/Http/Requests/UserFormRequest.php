@@ -41,6 +41,7 @@ class UserFormRequest extends FormRequest
 
         return [
             'email'=>'email|max:150',
+            'regno'=>'required|unique:users|max:30'
         ];
     }
     private function staff(){

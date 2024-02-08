@@ -3,22 +3,13 @@
 namespace App\Services\UserService;
 use App\Models\User;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 
 
 class UserRepository
 {
    
-    // public function getUserByEmail($email){
-
-    //     return  User::where('email', $email)->first();
-
-    // }
-    // public function authenticateUser(array $request)
-    // {
-    //     return $this->getUserByEmail($request['email']);
-        
-    // }
 
     public function createUser(array $data)
     {
@@ -27,9 +18,11 @@ class UserRepository
       
              return User::Create($data);
              
-        } catch (QueryException $exception) {
+        } catch (QueryException $e) {
 
-            return response()->json(['message' => 'Insertion failed.'], 500);
+            Log::channel('insertion_errors')->error('Error creating user: ' . $e->getMessage());
+
+            return response()->json(['message' => "Insertion error"], 500);
         }
     }
 
