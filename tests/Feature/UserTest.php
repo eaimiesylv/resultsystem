@@ -12,18 +12,23 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
     protected $user;
+    protected $password;
+
     public function setUp(): void
     {
-        parent::setUp();
+    
+      parent::setUp();
+      $this->password = Hash::make("12s");
 
       $this->user =  [
             "first_name"=>"okom",
             "last_name"=>"emmanuel",
-            "regno"=>"maj1",
+            "regno"=>"maj1@gmail.com", // email = regno set from the user model
+            'email'=>'maj1@gmail.com',
             "sex"=>"male",
             "dob"=>"2023-05-05",
-            "password"=>"12s",
-            "password_confirmation"=>"12s",
+            "password"=>$this->password,
+            "password_confirmation"=>$this->password,
             "role"=>"0"
 
       ];
@@ -34,14 +39,12 @@ class UserTest extends TestCase
 
         $response = $this->post('api/v1/user', $this->user);
 
-
         unset($this->user['password_confirmation']);
 
-        unset($this->user['password']);
-        
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('users', $this->user);
 
     }
+    
 }

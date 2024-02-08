@@ -66,15 +66,21 @@ class User extends Authenticatable
 
                 $userdetails=[
                     'email'=>request()->regno,
+                   
                 ];
             }
-            // use staff email as regno
-            else{
+            // use staff email as regon
+           else {
+           
                 $userdetails=[
                     'regno'=>request()->email,
+                   
+                    
                 ];
 
             }
+           
+            
             $user->fill($userdetails);
         });
 
