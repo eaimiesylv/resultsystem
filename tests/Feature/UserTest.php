@@ -33,8 +33,15 @@ class UserTest extends TestCase
     public function test_user_can_register(){
 
         $response = $this->post('api/v1/user', $this->user);
+
+
+        unset($this->user['password_confirmation']);
+
+        unset($this->user['password']);
         
         $response->assertStatus(201);
+
+        $this->assertDatabaseHas('users', $this->user);
 
     }
 }
