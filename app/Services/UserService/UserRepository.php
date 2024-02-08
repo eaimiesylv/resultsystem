@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class UserRepository
 {
-   
+    public function getUserByEmail($email){
+
+        return  User::where('email', $email)->first();
+
+    }
 
     public function createUser(array $data)
     {

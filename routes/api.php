@@ -3,7 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'v1'], function(){
-    Route::resource('/user', App\Http\Controllers\Users\UserController::class);
+
+    Route::resource('/user', App\Http\Controllers\Users\UserController::class)->only('store');
+    Route::post('/login', App\Http\Controllers\Users\AuthController::class);
     // Route::post('/login', [AuthController::class, 'store']);
     // Route::get('klass', [KlassController::class, 'index']);
     // Route::get('session', [SessionController::class, 'index']);

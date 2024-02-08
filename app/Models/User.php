@@ -54,11 +54,27 @@ class User extends Authenticatable
     ];
 
     public static function boot(){
+        
         parent::boot();
         static::creating(function($user){
+            
             $userdetails=[
                 'ip'=>request()->getClientIp(),
             ];
+            // use student regno as email
+            if(request()->role == 0){
+
+                $userdetails=[
+                    'email'=>request()->regno,
+                ];
+            }
+            // use staff email as regno
+            else{
+                $userdetails=[
+                    'regno'=>request()->email,
+                ];
+
+            }
             $user->fill($userdetails);
         });
 

@@ -24,7 +24,8 @@ class AuthService
     public function authenticateUser(array $request)
     {
        
-        $user = $this->userRepository->authenticateUser($request);
+        $user = $this->userRepository->getUserByEmail($request['email']);
+        
         return $this->passwordValidation($request['password'], $user->password) ? [$user->createToken('api-token')->plainTextToken, $user]: [];
        
     }
